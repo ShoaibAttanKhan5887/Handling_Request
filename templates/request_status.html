@@ -1,0 +1,135 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting for Request</title>
+</head>
+<body>
+    <h1>Your request is waiting...</h1>
+    <p id="status">Status: Waiting</p>
+
+    <script>
+        function checkStatus() {
+            // Make an AJAX request to check the status of the request
+            fetch('/check_request/')
+                .then(response => response.json())
+                .then(data => {
+                    const statusElement = document.getElementById('status');
+                    statusElement.textContent = `Status: ${data.status}`;
+                    
+                    // If the status is 'completed', display a message and hide the status element
+                    if (data.status === 'processing') {
+                        // Continue checking status periodically
+                        setTimeout(checkStatus, 1000); // Check every 1 second
+                    } else {
+                        // Display a completed message
+                        statusElement.textContent = 'Status: Completed';
+                        // Optionally, you can redirect the user or perform other actions here
+                    }
+                });
+        }
+
+        // Start checking status when the page loads
+        checkStatus();
+    </script>
+</body>
+</html> {% endcomment %}
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting for Request</title>
+</head>
+<body>
+    <h1>Your request is waiting...</h1>
+    <p id="status">Status: Waiting</p>
+
+    <script>
+        function checkStatus() {
+            // Make an AJAX request to check the status of the request
+            fetch('/check_request_status/')
+                .then(response => response.json())
+                .then(data => {
+                    const statusElement = document.getElementById('status');
+                    statusElement.textContent = `Status: ${data.status}`;
+                    
+                    // If the status is 'completed', reload the page
+                    if (data.status === 'processing') {
+                        // Continue checking status periodically
+                        setTimeout(checkStatus, 1000); // Check every 1 second
+                    } else if (data.status === 'completed') {
+                        // Reload the page to display 'Status: Completed'
+                        window.location.reload();
+                    }
+                });
+        }
+
+        // Start checking status when the page loads
+        checkStatus();
+    </script>
+</body>
+</html> {% endcomment %}
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Status</title>
+</head>
+<body>
+    <h1>Request Status</h1>
+    <p id="status">Status: Checking...</p>
+
+    <script>
+        function checkStatus() {
+            // Make an AJAX request to check the status of the request
+            fetch('/check_request/')
+                .then(response => response.json())
+                .then(data => {
+                    const statusElement = document.getElementById('status');
+                    statusElement.textContent = `Status: ${data.status}`;
+                    
+                    // If the status is 'completed', display a message and hide the status element
+                    if (data.status === 'completed') {
+                        // Display a completed message
+                        statusElement.textContent = 'Status: Completed';
+                        // Optionally, you can redirect the user or perform other actions here
+                    } else if (data.status === 'waiting') {
+                        // Display a waiting message
+                        statusElement.textContent = 'Status: Waiting for processing...';
+                    } else {
+                        // Handle other status values as needed
+                    }
+
+                    // Continue checking status periodically
+                    setTimeout(checkStatus, 1000); // Check every 1 second
+                });
+        }
+
+        // Start checking status when the page loads
+        checkStatus();
+    </script>
+</body>
+</html> {% endcomment %}
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Status</title>
+</head>
+<body>
+    <h1>Request Status</h1>
+    <p>Status: {{ status }}</p>
+</body>
+</html>  
+
+
